@@ -1,29 +1,26 @@
 import { html, css, LitElement } from 'lit';
+import '@lrnwebcomponents/simple-icon/lib/simple-icon-lite.js';
+import '@lrnwebcomponents/simple-icon/lib/simple-icons.js';
 
 export class InvisiButton extends LitElement {
   static get styles() {
     return css`
       :host {
-      display: inline-block;
-      color: var(--invisi-button-text-color, white);
+        display: inline-block;
+        color: var(--invisi-button-text-color, white);
         --invisi-button-color: black;
         margin: 20px 20px 0;
       }
-      a:hover {
-        color: var(--invisi-button-color);
-        background-color: transparent;
-        border: 2px solid var(--invisi-button-color);
-      }
+      a:hover,
       a:focus {
         color: var(--invisi-button-color);
         background-color: transparent;
+        border: 2px solid var(--invisi-button-color);
       }
       a {
         display: block;
         color: var(--invisi-button-text-color);
         background-color: var(--invisi-button-color);
-        transition: background 0.3s linear, border 0.1s linear,
-          border-radius 0.1s linear;
         text-decoration: none;
         font-size: 18px;
         border-radius: 5px 5px 5px 5px;
@@ -37,32 +34,36 @@ export class InvisiButton extends LitElement {
         display: flex;
         justify-content: center;
       }
-
-  `;
-}
+    `;
+  }
 
   static get properties() {
     return {
       link: { type: String },
-      title: { type: String }
+      title: { type: String },
+      icon: { type: String },
+      diabled: { type: Boolean, reflect: true },
     };
   }
 
   constructor() {
     super();
-    this.link = "https://teuxdeux.com/signup";
+    this.link = 'https://teuxdeux.com/signup';
     this.title = null;
-    this.accentColor = "green";
-    if (this.querySelector("a")) {
-      this.link = this.querySelector("a").getAttribute("href");
-      this.title = this.querySelector("a").innerText;
-      this.innerHTML = null;
-    }
+    this.accentColor = 'green';
+    this.icon = null;
   }
 
   render() {
-    return html` <a href="${this.link}" role="button">
-      <span><span id="title">${this.title}</span><slot></slot></span></a>
+    return html`
+      <a href="${this.link}" role="button" tabindex="-1">
+        <button>
+          ${this.icon
+            ? html`<simple-icon-lite icon=${this.icon}></simple-icon-lite>`
+            : ``}
+          ${this.title}
+        </button>
+      </a>
     `;
   }
 }
