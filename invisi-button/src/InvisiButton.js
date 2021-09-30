@@ -54,8 +54,8 @@ export class InvisiButton extends LitElement {
       }
       .arrowrotate:hover 
       {
-        transform:rotate(90deg);
-        transition: all 0.1s ease;
+        transform:rotate(360deg);
+        transition: all 0.5s ease;
       }
       a {
         color: var(--invisi-button-color);
