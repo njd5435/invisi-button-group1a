@@ -81,6 +81,11 @@ export class InvisiButton extends LitElement {
     this.disabled = false;
   }
 
+  _playSound() {
+   let audio = new Audio(new URL(`./buttonsound.mp3`, import.meta.url).href);
+    audio.play();
+  }
+  
   render() {
     return html`
     <a href="${this.link}" tabindex=-1 role="button" rel="noopener noreferrer" part="invisi-button-link">
