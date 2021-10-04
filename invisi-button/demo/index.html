@@ -3,31 +3,21 @@
 <head>
   <meta charset="utf-8">
   <style>
-    body {
-      background: lightgray;
-    }
+      body {
+        background: gray;
+      }
   </style>
 </head>
 <body>
-  <div id="demo"></div>
-  <invisi-button title="Join Now!" link="https://teuxdeux.com/signup" icon= "av:fiber-manual-record"></invisi-button>
-
+  <invisi-button></invisi-button>
+  <!-- audio from https://www.myinstants.com/media/sounds/itsbritney.mp3-->
+  <invisi-button title="Dark Mode" dark></invisi-button>
+  <invisi-button title="Disabled" disabled icon="block"></invisi-button>
+  <invisi-button icon="chevron-right" title="Join Now" link="https://teuxdeux.com/">
+      <audio preload="auto" src="https://www.myinstants.com/media/sounds/itsbritney.mp3"></audio></invisi-button>
 
   <script type="module">
-    import { html, render } from 'lit';
     import '../invisi-button.js';
-
-    const title = '';
-    render(
-      html`
-        <invisi-button .title=${title}>
-          Join now for free
-        </invisi-button>
-      `,
-      document.querySelector('#demo')
-    );
-    import "@lrnwebcomponents/simple-icon/lib/simple-icon-lite.js";
-
   </script>
 </body>
 </html>
