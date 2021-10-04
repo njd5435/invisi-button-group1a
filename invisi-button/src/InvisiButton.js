@@ -1,69 +1,103 @@
 import { html, css, LitElement } from 'lit';
-import '@lrnwebcomponents/simple-icon/lib/simple-icon-lite.js';
-import '@lrnwebcomponents/simple-icon/lib/simple-icons.js';
+import "@lrnwebcomponents/simple-icon/lib/simple-icon-lite.js";
+import "@lrnwebcomponents/simple-icon/lib/simple-icons.js";
 
 export class InvisiButton extends LitElement {
   static get styles() {
     return css`
       :host {
-        display: inline-block;
-        color: var(--invisi-button-text-color, white);
+      display: block;
+      padding: 10px;
+      --invisi-button-color: white;
+      --invisi-button-background-color: black;
+      --invisi-button-disabled-background-color: lightgray;
+      }
+      :host([dark]) {
         --invisi-button-color: black;
-        margin: 20px 20px 0;
+        --invisi-button-background-color: white;
       }
-      a:hover,
-      a:focus {
+      :host([disabled]) {
+        pointer-events:none;
+        color: var(--invisi-button-background-color);
+        cursor: not-allowed;
+      }
+      .invisi {
         color: var(--invisi-button-color);
-        background-color: transparent;
-        border: 2px solid var(--invisi-button-color);
-      }
-      a {
-        display: block;
-        color: var(--invisi-button-text-color);
-        background-color: var(--invisi-button-color);
+        background-color: var(--invisi-button-background-color);
+        transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
         text-decoration: none;
         font-size: 18px;
-        border-radius: 5px 5px 5px 5px;
-        box-shadow: 0 6px 26px 0 rgba(0, 0, 0, 0.16);
+        border-radius: 5px;
         padding: 15px 15px;
         font-family: Sans-serif;
         font-weight: 540;
-        width: 150px;
+        text-align: center;
+        border: 2px solid var(--invisi-button-background-color);
       }
-      a span {
-        display: flex;
-        justify-content: center;
+      .invisi:disabled {
+        color: var(--invisi-button-background-color);
+        background-color: var(--invisi-button-disabled-background-color);
+        cursor: not-allowed;
       }
-    `;
-  }
+      .invisi:focus, .invisi:active {
+        color: var(--invisi-button-background-color);
+        background-color: transparent;
+        border: 2px solid var(--invisi-button-background-color);
+      }
+      .invisi:hover
+      {
+        color: var(--invisi-button-background-color);
+        background-color: transparent;
+        border: 2px solid var(--invisi-button-background-color);
+        cursor:pointer;
+        
+      }
+      .arrowrotate:hover 
+      {
+        transform:rotate(360deg);
+        transition: all 0.5s ease;
+      }
+      a {
+        color: var(--invisi-button-color);
+        text-decoration: none
+      }
+  `;
+}
 
   static get properties() {
     return {
       link: { type: String },
       title: { type: String },
       icon: { type: String },
-      diabled: { type: Boolean, reflect: true },
+      disabled: { type: Boolean, reflect: true },
+      sound: {type: String}
     };
   }
 
   constructor() {
     super();
-    this.link = 'https://teuxdeux.com/signup';
-    this.title = null;
-    this.accentColor = 'green';
-    this.icon = null;
+    this.link = "https://teuxdeux.com/";
+    this.title = "Join now for free";
+    this.icon = false;
+    this.disabled = false;
+    this.sound= './itsbritney (1).mp3'
+   
   }
-
+  
+  _playaudio() {
+    let audio = new Audio(new URL( this.sound, import.meta.url).href);
+    audio.play();
+  }
+    
+  
   render() {
     return html`
-      <a href="${this.link}" role="button" tabindex="-1">
-        <button>
-          ${this.icon
-            ? html`<simple-icon-lite icon=${this.icon}></simple-icon-lite>`
-            : ``}
-          ${this.title}
-        </button>
-      </a>
+    <a href="${this.link}" tabindex=-1 role="button" rel="noopener noreferrer" part="invisi-button-link" @click=${this._playaudio}>
+    <button class = "invisi" ?disabled="${this.disabled}">
+    ${this.title}
+    ${this.icon ? html`<simple-icon-lite  class= "arrowrotate" icon="${this.icon}" id="chevron-right"></simple-icon-lite>` : ''}
+    </button>
+    </a>
     `;
   }
 }
